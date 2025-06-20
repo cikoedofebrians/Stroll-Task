@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ChatsView: View {
     var body: some View {
-        VStack (alignment: .leading){
+        VStack (alignment: .leading, spacing: 0){
             ForEach(chats, id: \.self) { chat in
                 HStack (alignment: .top, spacing: 0){
                     Image(uiImage: chat.image)
@@ -20,7 +20,7 @@ struct ChatsView: View {
                         .clipShape(Circle())
                         .padding(.trailing, 16)
                     VStack(alignment: .leading, spacing: 2) {
-                        HStack (spacing: 0) {
+                        HStack (alignment: .center, spacing: 0) {
                             Text(chat.name)
                                 .font(.poppins(.bold, size: 16))
                                 .padding(.trailing, 10)
@@ -51,6 +51,7 @@ struct ChatsView: View {
                             Text("\(chat.isLastMessageFromMe ? "You: ": "")\(textMessage)")
                                 .font(.poppins(.regular, size: 14))
                                 .foregroundStyle(chat.isLastMessageFromMe ? .tertiaryText : .primaryText)
+                                .lineLimit(2)
                         case .voiceRecord(let duration):
                             HStack(spacing: 4) {
                                 Image(.voiceRecordIcon)
@@ -61,6 +62,7 @@ struct ChatsView: View {
                                     .font(.poppins(.bold, size: 14))
                                     .foregroundStyle(Color(hex: "8669A8"))
                             }
+                            
                         }
                     }
                     .padding(.trailing, 12)
@@ -93,15 +95,13 @@ struct ChatsView: View {
                         
                     }
                 }
-                .frame(height: 80)
+                .frame(height: 85)
                 Divider()
             }
-            
-            
         }
-        
         .padding(.horizontal, 20)
         .padding(.top, 10)
+        .padding(.bottom, 50)
     }
 }
 

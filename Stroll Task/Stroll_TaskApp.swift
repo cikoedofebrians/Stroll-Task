@@ -12,7 +12,7 @@ struct Stroll_TaskApp: App {
     var body: some Scene {
         WindowGroup {
             StrollTabView()
-                
+                .environment(\.colorScheme, .dark) 
         }
     }
 }
