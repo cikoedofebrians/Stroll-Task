@@ -1,0 +1,6 @@
+.DS_Store
+.swiftpm
+.build
+.xcode.env.local
+.xcode.env.xcconfig
+.xcode.env.xcconfig
