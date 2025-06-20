@@ -18,14 +18,34 @@ struct TabBarView: View {
                         selectedTab = TabBarItem(rawValue: tabViewOptions[index].title) ?? .matches
                     }
                 } label: {
-                    VStack(spacing: 6){
-                        Image(uiImage: selectedTab.rawValue == tabViewOptions[index].title ? tabViewOptions[index].activeIcon :  tabViewOptions[index].icon)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                        Text(tabViewOptions[index].title)
-                            .font(.poppins(.semiBold, size: 10))
-                            .foregroundStyle(selectedTab.rawValue == tabViewOptions[index].title ? .activePurple : .tertiaryText)
-                        
+                    ZStack(alignment: .topTrailing) {
+                  
+                        VStack(spacing: 6){
+                            Image(uiImage: selectedTab.rawValue == tabViewOptions[index].title ? tabViewOptions[index].activeIcon :  tabViewOptions[index].icon)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                            Text(tabViewOptions[index].title)
+                                .font(.poppins(.semiBold, size: 10))
+                                .foregroundStyle(selectedTab.rawValue == tabViewOptions[index].title ? .activePurple : .tertiaryText)
+                        }
+                        if tabViewOptions[index].notificationCount > 0 {
+                            Text("\(tabViewOptions[index].notificationCount)")
+                                .font(.poppins(.semiBold, size: 7))
+                                .foregroundStyle(.black)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color(hex: "B5B2FF"))
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .stroke(Color(hex: "0F1115"), lineWidth: 2)
+                                        }
+
+                                }
+                            
+                                .offset(x: 4, y: -4)
+                        }
                     }
                 }
 
@@ -46,4 +66,9 @@ struct TabBarView: View {
             alignment: .top
         )
     }
+}
+
+
+#Preview {
+    TabBarView(selectedTab: .constant(.bonfire))
 }
