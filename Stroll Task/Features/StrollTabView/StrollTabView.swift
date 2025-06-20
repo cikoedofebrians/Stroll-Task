@@ -20,25 +20,32 @@ struct StrollTabView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            switch selectedTab {
-            case .cards:
-                Text("Cards View")
-                    .font(.poppins(.bold, size: 24))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .transition(.blurReplace())
-            case .bonfire:
-                Text("Bonfire View")
-                    .font(.poppins(.bold, size: 24))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .transition(.blurReplace())
-            case .matches:
-                MatchesView()
-                    .transition(.blurReplace())
-            case .profile:
-                Text("Profile View")
-                    .font(.poppins(.bold, size: 24))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .transition(.blurReplace())
+            ZStack(alignment: .bottom) {
+                switch selectedTab {
+                case .cards:
+                    Text("Cards View")
+                        .font(.poppins(.bold, size: 24))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .transition(.blurReplace())
+                case .bonfire:
+                    Text("Bonfire View")
+                        .font(.poppins(.bold, size: 24))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .transition(.blurReplace())
+                case .matches:
+                    MatchesView()
+                        .transition(.blurReplace())
+                case .profile:
+                    Text("Profile View")
+                        .font(.poppins(.bold, size: 24))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .transition(.blurReplace())
+                }
+                Rectangle()
+                    .fill(
+                        LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
+                    )
+                    .frame(height: 50)
             }
             TabBarView(selectedTab: $selectedTab)
             
