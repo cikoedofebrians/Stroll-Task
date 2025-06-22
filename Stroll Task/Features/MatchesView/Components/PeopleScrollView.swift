@@ -14,67 +14,98 @@ struct PeopleScrollView: View {
                 ForEach(peoples, id: \.self) { people in
                     ZStack (alignment: .center) {
                         ZStack {
+                            
                             Image(uiImage: people.image)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 145, height: 205)
                                 .clipped()
-                                .blur(radius: people.isUnlocked ? 0 : 16)
-                            LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
+                            
+                            
+                            if !people.isUnlocked  {
+                                LinearGradient(colors: [.clear, .black], startPoint: .center, endPoint: .bottom)
+                                LinearGradient(colors: [.clear, .black], startPoint: .center, endPoint: .bottom)
+                                LinearGradient(colors: [.clear, .black], startPoint: .center, endPoint: .bottom)
+                            } else {
+                                LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
+                            }
+                      
+                            
+                            if !people.isUnlocked {
+                                Rectangle()
+                                    .fill(
+                                        .ultraThinMaterial
+                                    )
+                            }
+                            
+
+                            
                         }
                         .clipShape(
                             RoundedRectangle(cornerRadius: 20, style: .continuous)
                         )
-                        .shadow(radius: 4, x: 2, y: 4)
+                        .shadow(color: .black, radius: 4, x: 2, y: 4)
                         
                         if !people.isUnlocked {
                             Text("Tap to answer")
-                                .font(.poppins(.bold, size: 10))
+                                .font(.proximaNova(.bold, size: 10))
                                 .foregroundStyle(Color(hex: "A8AFB7"))
                                 .offset(y: -25)
                         }
                         VStack(spacing: 6) {
                             if people.isMadeAMove {
                                 HStack {
-                                    Text(people.hourSeen == nil ? "📣 They made a move!" : "📣")
-                                        .font(.poppins(.semiBold, size: 8))
-                                        .padding(.horizontal, people.hourSeen == nil ? 10 : 8)
-                                        .padding(.vertical, people.hourSeen == nil ? 4 : 8)
+                                    if (people.hourSeen == nil) {
+                                        Text("📣 They made a move!")
+                                            .font(.proximaNova(.semiBold, size: 9))
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 4)
+                                            .background{
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .fill(.black)
+                                            }
+                                    } else if (people.hourSeen != nil && people.hourSeen != nil) {
+                                        Text("📣")
+                                            .font(.system(size: 12))
+                                            .padding(6)
+                                            .background {
+                                                Circle()
+                                                    .fill(.black)
+                                            }
                                         
-                                        .background{
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .fill(.black)
-                                        }
-                                    
-                                    if let hourSeen = people.hourSeen {
-                                        Spacer()
-                                        ZStack {
-                                            Circle()
-                                                .fill(.white.opacity(0.5))
-                                                .frame(width: 22, height: 22)
-                                                .shadow(color: .black, radius: 8)
-                                            Circle()
-                                                .trim(from: 0.35, to: 1)
-                                                .stroke(lineWidth: 2)
-                                                .rotationEffect(.degrees(150))
-                                                .frame(width: 24, height: 24)
-                                            Text("\(hourSeen)h")
-                                                .font(.poppins(.bold, size: 7))
+                                        if let hourSeen = people.hourSeen {
+                                            Spacer()
+                                            ZStack {
+                                                Circle()
+                                                    .fill(.black)
+                                                    .frame(width: 32, height: 32)
+                                                    .blur(radius: 5)
+                                                Circle()
+                                                    .fill(.white.opacity(0.5))
+                                                    .frame(width: 22, height: 22)
+                                                Circle()
+                                                    .trim(from: 0.35, to: 1)
+                                                    .stroke(.white, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                                                    .rotationEffect(.degrees(150))
+                                                    .frame(width: 24, height: 24)
+                                                Text("\(hourSeen)h")
+                                                    .font(.proximaNova(.bold, size: 7))
+                                            }
                                         }
                                     }
                                 }
-                                .padding(.top, 16)
+                                .padding(.top, 12)
                             }
                             Spacer()
                             Text("\(people.name), \(people.age)")
-                                .font(.poppins(.bold, size: 16))
+                                .font(.proximaNova(.bold, size: 16))
                             Text(people.description)
                                 .foregroundStyle(Color(hex: "CFCFFE"))
-                                .font(.poppins(.regular, size: 10))
+                                .font(.proximaNova(.regular, size: 10))
                                 .multilineTextAlignment(.center)
                                 .padding(.bottom, 16)
                         }
-                        .padding(.horizontal,14)
+                        .padding(.horizontal, 15)
                         
                     }
                     .frame(width: 145, height: 205)
@@ -92,6 +123,7 @@ struct PeopleScrollView: View {
                 .frame(width: 90, height: 205)
             }
         }
+        .scrollClipDisabled()
         .scrollIndicators(.hidden)
         .contentMargins(.horizontal, 20)
         .padding(.top, 12)
@@ -100,6 +132,6 @@ struct PeopleScrollView: View {
 
 #Preview {
     PeopleScrollView()
-        .preferredColorScheme(.dark)
+//        .preferredColorScheme(.dark)
 }
 

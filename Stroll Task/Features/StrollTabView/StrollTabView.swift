@@ -24,22 +24,18 @@ struct StrollTabView: View {
                 switch selectedTab {
                 case .cards:
                     Text("Cards View")
-                        .font(.poppins(.bold, size: 24))
+                        .font(.proximaNova(.bold, size: 24))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(.blurReplace())
                 case .bonfire:
                     Text("Bonfire View")
-                        .font(.poppins(.bold, size: 24))
+                        .font(.proximaNova(.bold, size: 24))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(.blurReplace())
                 case .matches:
                     MatchesView()
-                        .transition(.blurReplace())
                 case .profile:
                     Text("Profile View")
-                        .font(.poppins(.bold, size: 24))
+                        .font(.proximaNova(.bold, size: 24))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(.blurReplace())
                 }
                 Rectangle()
                     .fill(

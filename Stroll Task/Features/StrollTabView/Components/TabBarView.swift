@@ -25,12 +25,12 @@ struct TabBarView: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                             Text(tabViewOptions[index].title)
-                                .font(.poppins(.semiBold, size: 10))
+                                .font(.proximaNova(.semiBold, size: 10))
                                 .foregroundStyle(selectedTab.rawValue == tabViewOptions[index].title ? .activePurple : .tertiaryText)
                         }
                         if tabViewOptions[index].notificationCount > 0 {
                             Text("\(tabViewOptions[index].notificationCount)")
-                                .font(.poppins(.semiBold, size: 7))
+                                .font(.proximaNova(.semiBold, size: 7))
                                 .foregroundStyle(.black)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
@@ -58,13 +58,6 @@ struct TabBarView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
         .background(Color(hex:"0F1115"))
-        .overlay(
-            Rectangle()
-                .fill(Color(hex: "1E1E1E"))
-                .frame(height: 1)
-                .frame(maxHeight: .infinity, alignment: .top),
-            alignment: .top
-        )
     }
 }
 

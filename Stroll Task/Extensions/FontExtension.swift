@@ -12,6 +12,21 @@ extension Font {
     static func poppins(_ weight: PoppinsWeight, size: CGFloat) -> Font {
         return .custom(weight.rawValue, size: size)
     }
+
+    static func proximaNova(_ weight: ProximaNovaWeight, size: CGFloat) -> Font {
+        return .custom(weight.rawValue, size: size)
+    }
+}
+
+enum ProximaNovaWeight: String {
+    case black = "ProximaNova-Black"
+    case bold = "ProximaNova-Bold"
+    case extraBold = "ProximaNova-ExtraBold"
+    case light = "ProximaNova-Light"
+    case regular = "ProximaNova-Regular"
+    case semiBold = "ProximaNova-SemiBold"
+    case thin = "ProximaNova-Thin"
+    case regularItalic = "ProximaNova-RegularItalic"
 }
 
 enum PoppinsWeight: String {

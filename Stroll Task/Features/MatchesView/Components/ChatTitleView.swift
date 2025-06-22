@@ -13,10 +13,10 @@ struct ChatTitleView: View {
         HStack {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Chats")
-                    .padding(.trailing, 16)
+                    .padding(.trailing, 15)
                 Rectangle()
                     .fill(.white)
-                    .frame(width: 70, height: 1)
+                    .frame(width: 56, height: 1)
             }
             Text("Pending")
                 .foregroundStyle(.tertiaryText)
@@ -24,11 +24,17 @@ struct ChatTitleView: View {
         }
         .padding(.horizontal, 20)
         .padding(.top, 34)
-        .font(.poppins(.bold, size: 22))
+        .font(.proximaNova(.bold, size: 22))
         Text("The ice is broken. Time to hit it off")
-            .font(.poppins(.italic, size: 12))
+            .font(.proximaNova(.regular, size: 12))
+            .italic()
             .foregroundStyle(.secondaryText)
             .padding(.leading, 20)
             .padding(.top, 10)
     }
+}
+
+#Preview {
+    ChatTitleView()
+        .preferredColorScheme(.dark)
 }
