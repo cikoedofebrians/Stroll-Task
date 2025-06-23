@@ -87,27 +87,29 @@ struct VoiceRecorderView: View {
                             .blur(radius: 4)
                     }
                     Circle()
-                        .stroke(Color(hex: "#B4B4B4"), lineWidth: 2)
+                        .stroke(viewModel.isRecording && viewModel.recordingDuration <= 15 ? Color(hex: "7B7B7B") : Color(hex: "#B4B4B4"), lineWidth: 2)
                         .frame(width: 52, height: 52)
                     Button {
-                        if viewModel.hasRecording {
-                            viewModel.togglePlayback()
-                        }
-                        else if viewModel.isRecording {
-                            viewModel.stopRecording()
-                        } else {
-                            viewModel.startRecording()
+                        if !(viewModel.isRecording && viewModel.recordingDuration <= 15) {
+                            if viewModel.hasRecording {
+                                viewModel.togglePlayback()
+                            }
+                            else if viewModel.isRecording {
+                                viewModel.stopRecording()
+                            } else {
+                                viewModel.startRecording()
+                            }
                         }
                     } label: {
                         if viewModel.hasRecording {
                             Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
                                 .font(.system(size: 20))
-                                .foregroundStyle(Color(hex: "4F4CB1"))
+                                .foregroundStyle( Color(hex: "4F4CB1"))
                         }
                         else if viewModel.isRecording {
                             Image(systemName: "stop.fill")
                                 .font(.system(size: 20))
-                                .foregroundStyle(.white)
+                                .foregroundStyle(viewModel.recordingDuration >= 15  ? Color(hex: "4F4CB1") : Color(hex: "#7B7B7B"))
                         } else {
                             Circle()
                                 .fill(Color(hex: "#4F4CB1"))
@@ -144,7 +146,7 @@ struct VoiceRecorderView: View {
                     }
                 } label: {
                     Text("Submit")
-                        .foregroundStyle(viewModel.recordingDuration < 15 ? Color(hex: "36393E") : .white)
+                        .foregroundStyle(viewModel.recordingDuration >= 15 && viewModel.hasRecording ? .white : Color(hex: "5C6770"))
                         .font(.proximaNova(.regular, size: 18))
                 }
                 .padding(.leading, 30)
