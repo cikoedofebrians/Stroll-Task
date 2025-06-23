@@ -17,7 +17,7 @@ class MatchesViewModel: ObservableObject {
     
     func checkPerson(_ person: People) {
         if let index = peoples.firstIndex(where: { $0.name == person.name }) {
-            peoples[index].isChecked.toggle()
+            peoples[index].isChecked = true
         }
     }
 }
