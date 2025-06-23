@@ -21,7 +21,9 @@ class VoiceRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
     @Published var playbackDuration: TimeInterval = 0
     @Published var playbackBarCount: Int = 0
     @Published var playBackEverStarted: Bool = false
-    
+    @Published var realOffset = CGFloat(0)
+
+
     private var audioRecorder: AVAudioRecorder?
     private var audioPlayer: AVAudioPlayer?
     private var recordingURL: URL?
@@ -81,13 +83,16 @@ class VoiceRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
     
     func togglePlayback() {
         if isPlaying {
-            audioPlayer?.pause()
-            isPlaying = false
-            playbackTimer?.invalidate()
+            DispatchQueue.main.async {
+                self.audioPlayer?.pause()
+                self.playbackTimer?.invalidate()
+                self.isPlaying = false
+            }
         } else {
             guard let url = recordingURL, hasRecording else { return }
             if audioPlayer == nil {
                 do {
+                    self.realOffset = 0
                     audioPlayer = try AVAudioPlayer(contentsOf: url)
                     audioPlayer?.delegate = self
                 } catch {
@@ -95,23 +100,35 @@ class VoiceRecorderViewModel: NSObject, ObservableObject, AVAudioRecorderDelegat
                     return
                 }
             }
+            withAnimation(.none) {
+                position.scrollTo(id: 0, anchor: .leading)
+            }
+          
             audioPlayer?.play()
             isPlaying = true
             playBackEverStarted = true
             playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] _ in
-                guard self.audioPlayer != nil else { return }
-          
-                withAnimation {
-                    self.position.scrollTo(id: playbackBarCount)
+                let halfWidth = (UIScreen.main.bounds.width - 40) / 2
+                guard self.audioPlayer != nil, playbackTimer?.isValid ?? false else { return }
+                let offsetX = CGFloat(playbackBarCount * 4)
+                withAnimation(.easeInOut(duration: 0.1)) {
                     self.playbackBarCount += 1
                     self.playbackDuration += 0.1
+                    if offsetX >= halfWidth {
+                        withAnimation (.easeIn(duration: 0.1)){
+                            let realOffset = offsetX - halfWidth
+                            self.realOffset = realOffset
+                        }
+                    }
                 }
+        
 
             }
         }
     }
     
     func deleteRecording() {
+        realOffset = 0
         stopRecording()
         if let url = recordingURL {
             try? FileManager.default.removeItem(at: url)

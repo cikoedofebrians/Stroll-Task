@@ -46,15 +46,16 @@ struct VoiceRecorderView: View {
                                 .frame(width: proxy.size.width, height: 2)
                         }
                         ForEach(viewModel.bars.indices, id: \.self) { index in
-                            RoundedRectangle(cornerRadius: 2)
+                            Rectangle()
                                 .fill(
                                     viewModel.hasRecording && index < viewModel.playbackBarCount  ?
                                         .activePurple  :Color(hex: "36393E")
                                 )
-                                .frame(width: 4, height: max(4, CGFloat(viewModel.bars[index])))
+                                .frame(width: 2, height: max(2, CGFloat(viewModel.bars[index])))
                                 .id(index)
                         }
                     }
+                    .offset(x: -viewModel.realOffset)
                 }
                 .scrollDisabled(true)
                 .scrollPosition($viewModel.position)

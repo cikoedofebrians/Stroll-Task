@@ -26,12 +26,12 @@ struct MatchDetailsHeader: View {
             .padding(.bottom, 18)
             HStack {
                 Button {
-                    voiceRecorder.deleteRecording()
                     withAnimation(.spring(duration: 0.3)) {
                         showTabBar = true
                         isShowPerson = false
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        voiceRecorder.deleteRecording()
                         selectedPerson = nil
                     }
                 } label: {
