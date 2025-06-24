@@ -15,7 +15,7 @@ struct PeopleScrollView: View {
     let namespace: Namespace.ID
     var body: some View {
         ScrollView (.horizontal){
-            HStack(spacing: 16) {
+            ScalableHStack(spacing: 16) {
                 ForEach(matchesViewModel.peoples, id: \.self) { people in
                     Button {
                         withAnimation(.spring(duration: 0.3)) {
@@ -29,7 +29,7 @@ struct PeopleScrollView: View {
                                     .resizable()
                                     .matchedGeometryEffect(id: "\(people.name)", in: namespace, isSource: true)
                                     .scaledToFill()
-                                    .frame(width: 145, height: 205)
+                                    .scalableFrame(height: 205, width: 145)
                                     .clipped()
                                 
                                 if !people.isUnlocked  {
@@ -59,19 +59,20 @@ struct PeopleScrollView: View {
                             }
                             if !people.isUnlocked {
                                 Text("Tap to answer")
-                                    .font(.proximaNova(.bold, size: 10))
+                                    .scalableFontSize(weight: .bold, size: 10)
+//                                    .font(.proximaNova(.bold, size: 10))
                                     .foregroundStyle(Color(hex: "A8AFB7"))
                                     .offset(y: -25)
                             }
-                            VStack(spacing: 6) {
+                            ScalableVStack(spacing: 6) {
                                 if people.isMadeAMove {
-                                    HStack {
+                                    ScalableHStack {
                                         if (people.hourSeen == nil) {
                                             Text("📣 They made a move!")
                                                 .foregroundStyle(.white)
-                                                .font(.proximaNova(.semiBold, size: 9))
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 4)
+                                                .scalableFontSize(weight: .semiBold, size: 9)
+                                                .scalablePadding(.horizontal, 10)
+                                                .scalablePadding(.vertical, 4)
                                                 .background{
                                                     RoundedRectangle(cornerRadius: 20)
                                                         .fill(.black)
@@ -79,7 +80,8 @@ struct PeopleScrollView: View {
                                         } else if (people.hourSeen != nil && people.hourSeen != nil) {
                                             Text("📣")
                                                 .font(.system(size: 12))
-                                                .padding(6)
+                                                .scalablePadding(.horizontal, 6)
+                                                .scalablePadding(.vertical, 6)
                                                 .background {
                                                     Circle()
                                                         .fill(.black)
@@ -102,31 +104,31 @@ struct PeopleScrollView: View {
                                                         .frame(width: 24, height: 24)
                                                     Text("\(hourSeen)h")
                                                         .foregroundStyle(.white)
-                                                        .font(.proximaNova(.bold, size: 7))
+                                                        .scalableFontSize(weight: .bold, size: 7)
                                                 }
                                             }
                                         }
                                     }
-                                    .padding(.top, 12)
+                                    .scalablePadding(.top, 12)
                                 }
                                 Spacer()
                                 Text("\(people.name), \(people.age)")
                                     .foregroundStyle(.white)
-                                    .font(.proximaNova(.bold, size: 16))
+//                                    .font(.proximaNova(.bold, size: 16))
+                                    .scalableFontSize(weight: .bold, size: 16)
                                 Text(people.description)
                                     .foregroundStyle(Color(hex: "CFCFFE"))
-                                    .font(.proximaNova(.regular, size: 10))
+//                                    .font(.proximaNova(.regular, size: 10))
+                                    .scalableFontSize(weight: .regular, size: 10)
                                     .multilineTextAlignment(.center)
-                                    .padding(.bottom, 16)
-                            
-                                    
+//                                    .padding(.bottom, 16)
+                                    .scalablePadding(.bottom, 16)
                             }
-                            .padding(.horizontal, 15)
+//                            .padding(.horizontal, 15)
+                            .scalablePadding(.horizontal, 15)
                             
-                            
-             
                         }
-                        .frame(width: 145, height: 205)
+                        .scalableFrame(height: 205, width: 145)
           
                     }
                 }
@@ -138,15 +140,17 @@ struct PeopleScrollView: View {
                     Image(.morePeople)
                         .resizable()
                         .scaledToFit()
-                        .padding(.horizontal, 14)
+//                        .padding(.horizontal, 14)
+                        .scalablePadding(.horizontal, 14)
                 }
-                .frame(width: 90, height: 205)
+                .scalableFrame(height: 205, width: 90)
             }
         }
         .scrollClipDisabled()
         .scrollIndicators(.hidden)
         .contentMargins(.horizontal, 20)
-        .padding(.top, 12)
+//        .padding(.top, 12)
+        .scalablePadding(.top, 12)
 
     }
 }

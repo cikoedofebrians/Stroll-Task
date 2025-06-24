@@ -43,6 +43,7 @@ struct StrollTabView: View {
                         Text("Profile View")
                             .font(.proximaNova(.bold, size: 24))
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        
                     }
                     if showTabBar {
                         Rectangle()
@@ -50,6 +51,10 @@ struct StrollTabView: View {
                                 LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
                             )
                             .frame(height: 50)
+                            .onAppear(perform: {
+                                print(UIScreen.main.bounds.width)
+                                print(UIScreen.main.bounds.height)
+                            })
                     }
                 }
                 if showTabBar {
